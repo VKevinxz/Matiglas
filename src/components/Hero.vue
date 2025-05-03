@@ -47,6 +47,11 @@ const heroImage = computed(() => {
   return mode.value === 'light' ? '/matiglas_ing.jpg' : '/matiglas_ing.jpg';
 });
 
+// Imagen de worker vector basada en el modo actual
+const workerVectorImage = computed(() => {
+  return mode.value === 'dark' ? '/worker_vector_dark.png' : '/worker_vector_ligth.png';
+});
+
 // Para el efecto de texto flotante en el slogan
 const isVisible = ref(false);
 const words = ref(['Construcción', 'Mantenimiento', 'Remodelación']);
@@ -172,34 +177,42 @@ watch(mode, () => {
           :class="{ 'translate-y-0 opacity-100': isVisible, 'translate-y-10 opacity-0': !isVisible }">
           
           <div class="w-full mb-6">
-            <div class="inline-block bg-transparent">
-              <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold text-white tracking-tighter mb-4 russo-font">
-                MATIGLAS <span class="text-primary">.</span>
-              </h1>
-              <div class="h-2 w-1/3 md:w-1/2 bg-primary mt-2"></div>
-            </div>
-            <h2 class="text-2xl md:text-4xl lg:text-5xl text-white mt-4 font-bold max-w-3xl russo-font">
-              Soluciones en <span class="text-primary font-semibold">{{ typingText }}</span><span class="typing-cursor">|</span>
-            </h2>
-            <p class="text-white/80 mt-6 max-w-2xl">
-              Somos una empresa peruana con más de 10 años de experiencia en el sector, brindando servicios de calidad y garantía en todo Lima Metropolitana.
-            </p>
+            <AnimateOnScroll animation="fade-down">
+              <div class="inline-block bg-transparent">
+                <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold text-white tracking-tighter mb-4 russo-font">
+                  MATIGLAS <span class="text-primary">.</span>
+                </h1>
+                <div class="h-2 w-1/3 md:w-1/2 bg-primary mt-2"></div>
+              </div>
+            </AnimateOnScroll>
+            <AnimateOnScroll animation="fade-up" :delay="100">
+              <h2 class="text-2xl md:text-4xl lg:text-5xl text-white mt-4 font-bold max-w-3xl russo-font">
+                Soluciones en <span class="text-primary font-semibold">{{ typingText }}</span><span class="typing-cursor">|</span>
+              </h2>
+            </AnimateOnScroll>
+            <AnimateOnScroll animation="fade-up" :delay="200">
+              <p class="text-white/80 mt-6 max-w-2xl">
+                Somos una empresa peruana con más de 10 años de experiencia en el sector, brindando servicios de calidad y garantía en todo Lima Metropolitana.
+              </p>
+            </AnimateOnScroll>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-md">
-            <Button variant="default" size="lg" class="group btn-hover-effect w-full sm:w-auto relative overflow-hidden bg-primary text-black hover:bg-primary/90">
-              <span class="relative z-10 russo-font">Ver proyectos</span>
-              <ChevronRight class="ml-2 size-4 group-hover:translate-x-1 transition-transform duration-300" />
-              <div class="btn-glow"></div>
-            </Button>
-            
-            <a href="#contacto" class="w-full sm:w-auto">
-              <Button variant="outline" size="lg" class="bg-background/20 backdrop-blur-md border-white/20 text-white hover:text-white hover:bg-white/10 transition-all duration-300 group w-full">
-                <span class="russo-font">Contáctanos</span>
-                <ChevronRight class="ml-2 size-4 group-hover:translate-x-1 group-hover:rotate-90 transition-all duration-300" />
+          <AnimateOnScroll animation="fade-up" :delay="300">
+            <div class="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-md">
+              <Button variant="default" size="lg" class="group btn-hover-effect w-full sm:w-auto relative overflow-hidden bg-primary text-black hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5">
+                <span class="relative z-10 russo-font">Ver proyectos</span>
+                <ChevronRight class="ml-2 size-4 group-hover:translate-x-1 transition-transform duration-300" />
+                <div class="btn-glow"></div>
               </Button>
-            </a>
-          </div>
+              
+              <a href="#contacto" class="w-full sm:w-auto">
+                <Button variant="outline" size="lg" class="bg-background/20 backdrop-blur-md border-white/20 text-white hover:text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 group w-full hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5">
+                  <span class="russo-font">Contáctanos</span>
+                  <ChevronRight class="ml-2 size-4 group-hover:translate-x-1 group-hover:rotate-90 transition-all duration-300" />
+                </Button>
+              </a>
+            </div>
+          </AnimateOnScroll>
         </div>
       </div>
     </div>
@@ -221,17 +234,29 @@ watch(mode, () => {
 
   <section
     id="inicio"
-    class="w-full py-24 sm:py-32 min-h-[92vh] md:h-[92vh] flex flex-col justify-center overflow-hidden dots-background"
+    class="w-full py-24 sm:py-32 min-h-[92vh] md:h-[92vh] flex flex-col justify-center overflow-hidden dots-background relative"
   >
-    <div class="max-w-[2000px] px-4 md:px-8 lg:px-12 mx-auto">
+    <!-- Top Separator -->
+    <div class="absolute top-0 left-0 right-0 z-0 transform -translate-y-px">
+      <svg viewBox="0 0 1440 100" class="w-full h-auto">
+        <path fill="hsl(var(--background))" d="M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,85.3C672,96,768,96,864,85.3C960,75,1056,53,1152,48C1248,43,1344,53,1392,58.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+      </svg>
+    </div>
+
+    <div class="max-w-[2000px] px-4 md:px-8 lg:px-12 mx-auto relative z-10">
       <div class="grid lg:grid-cols-2 place-items-center gap-8 lg:pt-8">
-        <AnimateOnScroll>
-          <div class="flex flex-col items-start space-y-4 z-10">
-            <div class="inline-block bg-primary px-3 py-1 text-lg relative">
+        <AnimateOnScroll animation="fade-right">
+          <div class="flex flex-col items-start space-y-4 z-10 relative">
+            <!-- Imagen vectorial del trabajador como fondo con posicionamiento según referencia -->
+            <div class="absolute right-[-80px] sm:right-[-800px] top-[-60px] md:top-[-100px] w-[300px] md:w-[500px] h-[300px] md:h-[500px] z-0 worker-vector">
+              <img :src="workerVectorImage" alt="Worker Vector" class="w-full h-full object-contain opacity-[0.1] dark:opacity-[0.18]" />
+            </div>
+            
+            <div class="inline-block bg-primary px-3 py-1 text-lg relative shadow-md z-10">
               <span class="text-black russo-font">MATIGLAS.</span>
             </div>
 
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary russo-font">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary russo-font relative z-10">
               <span class="relative inline-block">
                 <span class="accent-text">Servicios</span>
                 <span class="accent-underline"></span>
@@ -240,29 +265,29 @@ watch(mode, () => {
               <span class="relative z-10">construcción</span>
             </h1>
 
-            <p class="text-muted-foreground text-lg md:text-xl lg:pr-10">
+            <p class="text-muted-foreground text-lg md:text-xl lg:pr-10 relative z-10">
               Especialistas en servicios de mantenimiento y construcción para edificios residenciales 
               y comerciales con más de 10 años de experiencia.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button variant="default" class="hero-btn-primary bg-primary text-black hover:bg-primary/90">
+            <div class="flex flex-col sm:flex-row gap-4 pt-4 relative z-10">
+              <Button variant="default" class="hero-btn-primary bg-primary text-black hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5">
                 <Phone class="mr-2 h-4 w-4" />
                 <span class="russo-font">Contáctanos</span>
                 <div class="btn-glow"></div>
               </Button>
-              <Button variant="outline" class="hero-btn-secondary">
+              <Button variant="outline" class="hero-btn-secondary hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5">
                 <Mail class="mr-2 h-4 w-4" />
                 <span class="russo-font">Solicitar presupuesto</span>
               </Button>
             </div>
 
-            <div class="flex items-center pt-6 text-muted-foreground">
-              <div class="flex -space-x-2">
-                <div class="client-avatar">MA</div>
-                <div class="client-avatar">CV</div>
-                <div class="client-avatar">BS</div>
-                <div class="client-avatar">+</div>
+            <div class="flex items-center pt-6 text-muted-foreground relative z-10">
+              <div class="flex -space-x-2 group">
+                <div class="client-avatar group-hover:translate-y-[-2px] transition-transform duration-200 ease-out">MA</div>
+                <div class="client-avatar group-hover:translate-y-[-2px] transition-transform duration-200 ease-out delay-75">CV</div>
+                <div class="client-avatar group-hover:translate-y-[-2px] transition-transform duration-200 ease-out delay-150">BS</div>
+                <div class="client-avatar group-hover:translate-y-[-2px] transition-transform duration-200 ease-out delay-200">+</div>
               </div>
               <div class="ml-3 text-sm">
                 <span class="font-medium">Más de 200 clientes satisfechos</span>
@@ -271,7 +296,7 @@ watch(mode, () => {
           </div>
         </AnimateOnScroll>
 
-        <AnimateOnScroll :delay="100" :distance="80" direction="left">
+        <AnimateOnScroll :delay="100" :distance="80" animation="fade-left">
           <div 
             class="relative w-full h-[400px] md:h-[450px] lg:h-[500px] parallax-container"
           >
@@ -313,7 +338,7 @@ watch(mode, () => {
     </div>
     
     <!-- Scroll indicator animado -->
-    <div class="scroll-indicator">
+    <div class="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
       <ChevronDownIcon class="animate-bounce h-6 w-6 text-primary" />
     </div>
   </section>
@@ -430,12 +455,13 @@ watch(mode, () => {
   font-weight: 600;
   border: 2px solid hsl(var(--background));
   transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add base shadow */
 }
 
 .client-avatar:hover {
   transform: translateY(-3px) scale(1.15);
   z-index: 10;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 /* Estilos para efecto parallax */
@@ -492,10 +518,11 @@ watch(mode, () => {
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Base shadow */
 }
 
 .hero-btn-primary:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px); /* Slightly increased lift */
   box-shadow: 0 7px 14px rgba(255, 204, 1, 0.3); /* Amarillo corporativo */
 }
 
@@ -521,12 +548,13 @@ watch(mode, () => {
 
 .hero-btn-secondary {
   transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Base shadow */
 }
 
 .hero-btn-secondary:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px); /* Slightly increased lift */
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  background-color: hsl(var(--background));
+  background-color: hsl(var(--muted) / 0.1); /* Subtle background on hover */
   border-color: #FFCC01; /* Amarillo corporativo */
 }
 
@@ -543,5 +571,21 @@ watch(mode, () => {
 .scroll-indicator:hover {
   opacity: 1;
   transform: translateX(-50%) scale(1.2);
+}
+
+/* Estilos para la imagen vectorial del trabajador */
+.worker-vector {
+  pointer-events: none; /* Evita que interfiera con clics */
+  transform: rotate(-5deg);
+}
+
+@media (max-width: 640px) {
+  .worker-vector {
+    opacity: 0.7; /* Reducir opacidad en pantallas muy pequeñas para mejor legibilidad */
+    right: -40px !important;
+    top: -40px !important;
+    width: 200px !important;
+    height: 200px !important;
+  }
 }
 </style>

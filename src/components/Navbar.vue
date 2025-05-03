@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue"; // Removed computed and useColorMode imports
+import { ref, onMounted, onUnmounted } from "vue";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -10,7 +10,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ToggleTheme from "./ToggleTheme.vue";
-import { Menu, X, Facebook, Instagram, Phone, Mail } from "lucide-vue-next";
+import { Menu, X } from "lucide-vue-next";
+import FacebookIcon from "@/icons/FacebookIcon.vue";
+import LinkedInIcon from "@/icons/LinkedInIcon.vue";
+import TikTokIcon from "@/icons/TikTokIcon.vue";
 
 const isScrolled = ref(false);
 const lastScrollY = ref(0);
@@ -19,10 +22,9 @@ const scrollThreshold = 100;
 const isMenuOpen = ref(false);
 const menuItems = ref([
   { title: "Inicio", href: "#", icon: "home" },
+  { title: "Nosotros", href: "#nosotros", icon: "users" },
   { title: "Servicios", href: "#servicios", icon: "wrench" },
   { title: "Homologaciones", href: "#homologaciones", icon: "award" },
-  { title: "Nosotros", href: "#nosotros", icon: "users" },
-  { title: "Proyectos", href: "#proyectos", icon: "briefcase" },
   { title: "Contacto", href: "#contacto", icon: "mail" },
 ]);
 
@@ -157,17 +159,14 @@ onMounted(() => {
         
         <!-- Social icons -->
         <div class="hidden md:flex items-center space-x-4 mr-4">
-          <a href="#" class="text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
-            <Facebook class="h-5 w-5" />
+          <a href="#" class="border-white text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+            <FacebookIcon class="h-5 w-5" />
           </a>
-          <a href="#" class="text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
-            <Instagram class="h-5 w-5" />
+          <a href="#" class="bg-white hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+            <LinkedInIcon class="h-5 w-5" />
           </a>
-          <a href="#" class="text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
-            <Phone class="h-5 w-5" />
-          </a>
-          <a href="#" class="text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
-            <Mail class="h-5 w-5" />
+          <a href="#" class="border-white text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+            <TikTokIcon class="h-5 w-5" />
           </a>
         </div>
         

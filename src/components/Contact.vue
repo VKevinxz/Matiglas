@@ -14,12 +14,10 @@ import {
   Loader2,
   // Importando iconos de redes sociales de Lucide
   Facebook,
-  Instagram,
-  Youtube,
   Linkedin
 } from "lucide-vue-next";
-// Importando el ícono personalizado de WhatsApp
-import WhatsAppIcon from "@/icons/WhatsAppIcon.vue";
+// Importando iconos personalizados
+import TikTokIcon from "@/icons/TikTokIcon.vue";
 
 // Para efectos interactivos en el formulario
 const focusedField = ref<string | null>(null);
@@ -49,7 +47,7 @@ const handleSubmit = () => {
   }, 1500);
 };
 
-// URLs de redes sociales con iconos de Lucide (excepto WhatsApp que usa el ícono personalizado)
+// URLs de redes sociales con iconos
 const socialLinks = [
   { 
     name: 'Facebook', 
@@ -59,32 +57,18 @@ const socialLinks = [
     hoverColor: 'hover:text-[#1877F2]'
   },
   { 
-    name: 'Instagram', 
-    icon: Instagram, 
-    url: '#', 
-    color: 'bg-gradient-to-br from-[#405DE6] via-[#E1306C] to-[#FFDC80]',
-    hoverColor: 'hover:text-[#E1306C]'
-  },
-  { 
-    name: 'WhatsApp', 
-    icon: WhatsAppIcon, 
-    url: '#', 
-    color: 'bg-[#25D366]',
-    hoverColor: 'hover:text-[#25D366]'
-  },
-  { 
-    name: 'YouTube', 
-    icon: Youtube, 
-    url: '#', 
-    color: 'bg-[#FF0000]',
-    hoverColor: 'hover:text-[#FF0000]'
-  },
-  { 
     name: 'LinkedIn', 
     icon: Linkedin, 
     url: '#', 
     color: 'bg-[#0077B5]',
     hoverColor: 'hover:text-[#0077B5]'
+  },
+  { 
+    name: 'TikTok', 
+    icon: TikTokIcon, 
+    url: '#', 
+    color: 'bg-[#000000]',
+    hoverColor: 'hover:text-[#000000]'
   }
 ];
 
@@ -102,7 +86,6 @@ onMounted(() => {
   window.addEventListener('resize', checkIfMobile);
 });
 
-// Limpiar event listener cuando se desmonta
 onUnmounted(() => {
   window.removeEventListener('resize', checkIfMobile);
 });
