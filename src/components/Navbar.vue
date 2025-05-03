@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ToggleTheme from "./ToggleTheme.vue";
-import { Menu, X } from "lucide-vue-next";
+import { Menu, X, Facebook, Instagram, Phone, Mail } from "lucide-vue-next";
 
 const isScrolled = ref(false);
 const lastScrollY = ref(0);
@@ -29,13 +29,6 @@ const activeSection = ref("inicio");
 
 // Para el efecto de subrayado animado en hover
 const hoverIndex = ref(-1);
-const indicatorStyle = computed(() => {
-  if (hoverIndex.value === -1) return { width: '0%', left: '0%' };
-  return {
-    width: `${100 / menuItems.value.length}%`,
-    left: `${(hoverIndex.value * 100) / menuItems.value.length}%`,
-  };
-});
 
 const handleScroll = () => {
   const scrollY = window.scrollY;
@@ -102,13 +95,13 @@ onMounted(() => {
   <header
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out"
     :class="{
-      'py-2 bg-background/90 backdrop-blur-md shadow-md': isScrolled,
+      'py-2 bg-secondary/95 backdrop-blur-md shadow-md': isScrolled,
       'py-4 bg-transparent': !isScrolled,
       'translate-y-0': isVisible,
       '-translate-y-full': !isVisible,
     }"
   >
-    <div class="container mx-auto px-4">
+    <div class="w-full px-6 md:px-10 lg:px-16">
       <div class="flex justify-between items-center">
         <!-- Logo con efecto de resplandor en hover -->
         <a 
@@ -116,24 +109,14 @@ onMounted(() => {
           class="flex items-center space-x-2 transition-all duration-300 ease-out hover:scale-105 logo-glow"
         >
           <div class="relative">
-            <div class="logo-circle absolute inset-0 bg-primary/20 rounded-full scale-0 transition-transform duration-500"></div>
+            <div class="absolute inset-0 bg-primary/20 rounded-full scale-0 transition-transform duration-500"></div>
             <img 
-              src="/gamestation.png" 
+              src="/matiglas_logo.png" 
               alt="MATIGLAS" 
               class="h-9 w-auto z-10 relative transition-all duration-300"
               :class="{ 'h-8': isScrolled }"
             />
           </div>
-          <span 
-            class="font-bold text-lg md:text-xl text-foreground transition-all duration-300"
-            :class="{
-              'text-white': !isScrolled && !isMenuOpen,
-              'text-foreground': isScrolled || isMenuOpen,
-            }"
-          >
-            MATIGLAS
-            <span class="text-primary shine-effect">E.I.R.L.</span>
-          </span>
         </a>
 
         <!-- Navigation para desktop con efectos mejorados -->
@@ -141,7 +124,6 @@ onMounted(() => {
           <!-- Indicador animado debajo de los items con brillo (solo visible cuando hay hover) -->
           <div 
             class="absolute bottom-0 h-0.5 bg-primary rounded-full transition-all duration-300 ease-in-out glow-effect"
-            :style="indicatorStyle"
             v-show="hoverIndex !== -1"
           ></div>
           
@@ -156,8 +138,7 @@ onMounted(() => {
               :href="item.href"
               class="px-4 py-2 text-sm rounded-md transition-all duration-300 inline-block relative menu-item overflow-hidden hover:scale-105"
               :class="{
-                'text-white': !isScrolled,
-                'text-foreground': isScrolled,
+                'text-white': true,
                 'font-medium': activeSection === item.href.slice(1) || (item.href === '#' && activeSection === 'inicio'),
                 'active-item': activeSection === item.href.slice(1) || (item.href === '#' && activeSection === 'inicio')
               }"
@@ -171,20 +152,39 @@ onMounted(() => {
               ></span>
             </a>
           </div>
-          
-          <div class="ml-2 rotate-hover" @mouseenter="hoverIndex = -1">
+        </nav>
+        
+        <!-- Social icons -->
+        <div class="hidden md:flex items-center space-x-4 mr-4">
+          <a href="#" class="text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+            <Facebook class="h-5 w-5" />
+          </a>
+          <a href="#" class="text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+            <Instagram class="h-5 w-5" />
+          </a>
+          <a href="#" class="text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+            <Phone class="h-5 w-5" />
+          </a>
+          <a href="#" class="text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+            <Mail class="h-5 w-5" />
+          </a>
+        </div>
+        
+        <!-- Theme toggle and cotizar -->
+        <div class="hidden md:flex items-center space-x-3">
+          <div class="rotate-hover">
             <ToggleTheme />
           </div>
           
           <Button 
             variant="default" 
             size="sm" 
-            class="ml-2 button-pulse-effect" 
+            class="button-pulse-effect bg-primary text-black hover:bg-primary/90" 
             @mouseenter="hoverIndex = -1"
           >
             <span class="relative z-10">Cotizar</span>
           </Button>
-        </nav>
+        </div>
 
         <!-- Mobile menu button con efecto de rotación mejorado -->
         <div class="flex items-center md:hidden space-x-4">
@@ -198,27 +198,23 @@ onMounted(() => {
                 variant="ghost" 
                 size="icon" 
                 @click="toggleMenu" 
-                class="relative overflow-hidden button-ripple"
-                :class="{
-                  'text-white hover:text-white hover:bg-white/20': !isScrolled,
-                  'text-foreground': isScrolled
-                }"
+                class="relative overflow-hidden button-ripple text-white hover:text-white hover:bg-white/20"
               >
                 <Menu v-if="!isMenuOpen" class="h-6 w-6 transition-transform duration-500 ease-elastic hover:rotate-180" />
                 <X v-else class="h-6 w-6 transition-transform duration-500 ease-elastic hover:rotate-180" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" class="w-[85%] sm:w-[385px]">
+            <SheetContent side="right" class="w-[85%] sm:w-[385px] bg-secondary text-white">
               <SheetHeader>
-                <SheetTitle class="flex items-center space-x-2">
+                <SheetTitle class="flex items-center space-x-2 text-white">
                   <img 
-                    src="/gamestation.png" 
+                    src="/matiglas_logo.png" 
                     alt="MATIGLAS" 
                     class="h-8 w-auto animate-pulse-subtle"
                   />
                   <span>MATIGLAS <span class="text-primary shine-effect">E.I.R.L.</span></span>
                 </SheetTitle>
-                <SheetDescription>
+                <SheetDescription class="text-white/70">
                   Soluciones integrales en construcción y mantenimiento
                 </SheetDescription>
               </SheetHeader>
@@ -236,9 +232,9 @@ onMounted(() => {
                 >
                   <a
                     :href="item.href"
-                    class="flex items-center p-3 rounded-md hover:bg-muted hover:scale-[1.02] transition-all duration-200 group"
+                    class="flex items-center p-3 rounded-md hover:bg-secondary-foreground/10 hover:scale-[1.02] transition-all duration-200 group"
                     :class="{
-                      'bg-muted/80': activeSection === item.href.slice(1) || (item.href === '#' && activeSection === 'inicio')
+                      'bg-secondary-foreground/20': activeSection === item.href.slice(1) || (item.href === '#' && activeSection === 'inicio')
                     }"
                     @click="handleMenuItemClick"
                   >
@@ -246,7 +242,7 @@ onMounted(() => {
                       group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
                       <component :is="item.icon" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     </div>
-                    <span class="font-medium">{{ item.title }}</span>
+                    <span class="font-medium text-white">{{ item.title }}</span>
                     <div 
                       class="ml-auto w-1.5 h-1.5 rounded-full transition-all duration-300"
                       :class="{
@@ -267,7 +263,7 @@ onMounted(() => {
                 >
                   <Button 
                     variant="default" 
-                    class="w-full button-pulse-effect"
+                    class="w-full button-pulse-effect bg-primary text-black hover:bg-primary/90"
                     @click="closeMenu"
                   >
                     <span class="relative z-10">Cotizar ahora</span>
@@ -291,12 +287,11 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 0.15rem;
-  background-color: hsl(var(--primary));
+  background-color: #FFCC01; /* Amarillo corporativo */
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
 }
-
 /* Solo mostrar el efecto de hover en elementos que no están activos */
 .menu-item:not(.active-item):hover::before,
 .active-item:hover::before {
@@ -357,7 +352,7 @@ onMounted(() => {
 
 .button-pulse-effect:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(241, 229, 20, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 204, 1, 0.4); /* Amarillo corporativo */
 }
 
 .button-pulse-effect::before {
@@ -367,7 +362,7 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at center, rgba(241, 229, 20, 0.2), transparent 70%);
+  background: radial-gradient(circle at center, rgba(255, 204, 1, 0.2), transparent 70%); /* Amarillo corporativo */
   transform: scale(0);
   transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
@@ -441,6 +436,6 @@ onMounted(() => {
 
 /* Efecto de resplandor para elementos destacados */
 .glow-effect {
-  box-shadow: 0 0 8px rgba(241, 229, 20, 0.6);
+  box-shadow: 0 0 8px rgba(255, 204, 1, 0.6); /* Amarillo corporativo */
 }
 </style>

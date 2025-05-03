@@ -1,146 +1,208 @@
 <script setup lang="ts">
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ref } from 'vue';
+import AnimateOnScroll from './AnimateOnScroll.vue';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-vue-next';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
-import { Star } from "lucide-vue-next";
-
-interface ReviewProps {
-  image: string;
+interface TestimonialProps {
+  id: number;
   name: string;
-  userName: string;
-  comment: string;
-  rating: number;
+  position: string;
+  company: string;
+  content: string;
+  avatar: string;
 }
 
-const reviewList: ReviewProps[] = [
-  {
-    image: "https://github.com/shadcn.png",
-    name: "John Doe",
-    userName: "Product Manager",
-    comment:
-      "Wow Vue + Shadcn-Vue is awesome!. This template lets me change colors, fonts and images to match my brand identity. ",
-    rating: 5.0,
-  },
-  {
-    image: "https://github.com/shadcn.png",
-    name: "Sophia Collins",
-    userName: "Cybersecurity Analyst",
-    comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. ",
-    rating: 4.8,
-  },
+interface ClientLogoProps {
+  id: number;
+  name: string;
+  logo: string;
+}
 
+const testimonials: TestimonialProps[] = [
   {
-    image: "https://github.com/shadcn.png",
-    name: "Adam Johnson",
-    userName: "Chief Technology Officer",
-    comment:
-      "Lorem ipsum dolor sit amet,exercitation. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    rating: 4.9,
+    id: 1,
+    name: 'Carlos Mendoza',
+    position: 'Director',
+    company: 'Constructora Andina',
+    content: 'MATIGLAS ha sido un aliado estratégico en nuestros proyectos. Su profesionalismo y puntualidad en la entrega de trabajos son características que valoramos enormemente en nuestra relación comercial.',
+    avatar: '/pacheco.png'
   },
   {
-    image: "https://github.com/shadcn.png",
-    name: "Ethan Parker",
-    userName: "Data Scientist",
-    comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod labore et dolore magna aliqua. Ut enim ad minim veniam.",
-    rating: 5.0,
+    id: 2,
+    name: 'Ana María Flores',
+    position: 'Gerente de Proyectos',
+    company: 'Grupo Inmobiliario Lima',
+    content: 'Han superado nuestras expectativas en cada proyecto. El personal técnico de MATIGLAS destaca por su conocimiento y compromiso, brindando soluciones efectivas aún en situaciones complejas.',
+    avatar: '/pacheco.png'
   },
   {
-    image: "https://github.com/shadcn.png",
-    name: "Ava Mitchell",
-    userName: "IT Project Manager",
-    comment:
-      "Lorem ipsum dolor sit amet, tempor incididunt  aliqua. Ut enim ad minim veniam, quis nostrud incididunt consectetur adipiscing elit.",
-    rating: 5.0,
-  },
-  {
-    image: "https://github.com/shadcn.png",
-    name: "Isabella Reed",
-    userName: "DevOps Engineer",
-    comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    rating: 4.9,
-  },
+    id: 3,
+    name: 'Luis Ramírez',
+    position: 'Propietario',
+    company: 'Edificio Miraflores 360',
+    content: 'Contratamos a MATIGLAS para renovar completamente nuestro edificio y el resultado fue excepcional. Cumplieron con los tiempos y costos acordados, manteniendo siempre un alto estándar de calidad.',
+    avatar: '/pacheco.png'
+  }
 ];
+
+const clientLogos: ClientLogoProps[] = [
+  { id: 1, name: 'Cliente 1', logo: '/pacheco.png' },
+  { id: 2, name: 'Cliente 2', logo: '/pacheco.png' },
+  { id: 3, name: 'Cliente 3', logo: '/pacheco.png' },
+  { id: 4, name: 'Cliente 4', logo: '/pacheco.png' },
+  { id: 5, name: 'Cliente 5', logo: '/pacheco.png' }
+];
+
+const currentTestimonialIndex = ref(0);
+
+function prevTestimonial() {
+  if (currentTestimonialIndex.value > 0) {
+    currentTestimonialIndex.value--;
+  } else {
+    currentTestimonialIndex.value = testimonials.length - 1;
+  }
+}
+
+function nextTestimonial() {
+  if (currentTestimonialIndex.value < testimonials.length - 1) {
+    currentTestimonialIndex.value++;
+  } else {
+    currentTestimonialIndex.value = 0;
+  }
+}
+
+function setTestimonial(index: number) {
+  currentTestimonialIndex.value = index;
+}
 </script>
 
 <template>
-  <section
-    id="testimonials"
-    class="container py-24 sm:py-32"
-  >
-    <div class="text-center mb-8">
-      <h2 class="text-lg text-primary text-center mb-2 tracking-wider">
-        Testimonials
-      </h2>
-
-      <h2 class="text-3xl md:text-4xl text-center font-bold mb-4">
-        Hear What Our 1000+ Clients Say
-      </h2>
-    </div>
-
-    <Carousel
-      :opts="{
-        align: 'start',
-      }"
-      class="relative w-[80%] sm:w-[90%] lg:max-w-screen-xl mx-auto"
-    >
-      <CarouselContent>
-        <CarouselItem
-          v-for="review in reviewList"
-          :key="review.name"
-          class="md:basis-1/2 lg:basis-1/3"
-        >
-          <Card class="bg-muted/50 dark:bg-card">
-            <CardContent class="pt-6 pb-0">
-              <div class="flex gap-1 pb-6">
-                <Star class="size-4 fill-primary text-primary" />
-                <Star class="size-4 fill-primary text-primary" />
-                <Star class="size-4 fill-primary text-primary" />
-                <Star class="size-4 fill-primary text-primary" />
-                <Star class="size-4 fill-primary text-primary" />
-              </div>
-
-              "{{ review.comment }}"
-            </CardContent>
-
-            <CardHeader>
-              <div class="flex flex-row items-center gap-4">
-                <Avatar>
-                  <AvatarImage
-                    src="https://www.radix-vue.com/logo.svg"
-                    alt="@radix-vue"
-                  />
-                  <AvatarFallback>SV</AvatarFallback>
-                </Avatar>
-
-                <div class="flex flex-col">
-                  <CardTitle class="text-lg">{{ review.name }}</CardTitle>
-                  <CardDescription>{{ review.userName }}</CardDescription>
+  <section id="testimonios" class="w-full py-24 sm:py-32 dots-background relative">
+    <!-- Elementos decorativos con estilo Bauhaus -->
+    <div class="absolute top-0 right-0 w-4 md:w-8 h-16 md:h-32 bg-primary"></div>
+    <div class="absolute bottom-0 left-0 w-16 md:w-32 h-4 md:h-8 bg-primary"></div>
+    
+    <div class="max-w-[2000px] px-4 md:px-8 lg:px-12 mx-auto">
+      <div class="text-center mb-16 relative">
+        <AnimateOnScroll>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 russo-font">
+            Lo que dicen <span class="text-primary">nuestros clientes</span>
+          </h2>
+          <div class="w-24 h-1 bg-primary mx-auto mt-6"></div>
+        </AnimateOnScroll>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+        <!-- Testimonios con flecha de navegación -->
+        <AnimateOnScroll>
+          <div class="relative">
+            <div class="testimonial-container">
+              <div class="testimonial-slide" v-for="(testimonial, index) in testimonials" :key="testimonial.id"
+                   :class="{ 'active': index === currentTestimonialIndex }">
+                <div class="flex flex-col space-y-4">
+                  <!-- Comillas decorativas -->
+                  <div class="text-primary mb-2">
+                    <Quote class="size-12 transform -scale-x-100 opacity-50 absolute -top-6 -left-2" />
+                    <Quote class="size-12 opacity-50 absolute -bottom-12 -right-2" />
+                  </div>
+                  
+                  <p class="text-lg text-muted-foreground italic leading-relaxed">
+                    {{ testimonial.content }}
+                  </p>
+                  
+                  <div class="flex items-center mt-4">
+                    <div class="flex-shrink-0">
+                      <img :src="testimonial.avatar" class="h-14 w-14 rounded-full object-cover" 
+                           :alt="testimonial.name" />
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="font-bold text-secondary russo-font">{{ testimonial.name }}</h4>
+                      <p class="text-sm text-muted-foreground">
+                        {{ testimonial.position }}, <span class="text-primary">{{ testimonial.company }}</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </CardHeader>
-          </Card>
-        </CarouselItem>
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+            </div>
+            
+            <!-- Controles de navegación -->
+            <div class="flex justify-between mt-6">
+              <div class="flex space-x-2">
+                <button v-for="(_, index) in testimonials" :key="index"
+                        @click="setTestimonial(index)"
+                        class="w-3 h-3 rounded-full transition-all duration-300"
+                        :class="index === currentTestimonialIndex ? 'bg-primary scale-125' : 'bg-muted hover:bg-primary/50'">
+                </button>
+              </div>
+              
+              <div class="flex space-x-2">
+                <button @click="prevTestimonial" 
+                        class="p-2 rounded-full border border-muted hover:border-primary hover:text-primary transition-colors duration-300">
+                  <ChevronLeft class="size-5" />
+                </button>
+                <button @click="nextTestimonial" 
+                        class="p-2 rounded-full border border-muted hover:border-primary hover:text-primary transition-colors duration-300">
+                  <ChevronRight class="size-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </AnimateOnScroll>
+        
+        <!-- Logos de clientes -->
+        <AnimateOnScroll :delay="200">
+          <div class="logos-container">
+            <h3 class="text-xl mb-8 font-medium text-secondary russo-font">Empresas que confían en nosotros</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 items-center justify-items-center">
+              <div v-for="logo in clientLogos" :key="logo.id" 
+                   class="bg-card p-4 rounded-lg border border-border hover:border-primary/50 hover:shadow-md transition-all duration-300 w-full h-20 flex items-center justify-center">
+                <img :src="logo.logo" :alt="logo.name" class="max-h-10 max-w-full filter grayscale hover:grayscale-0 transition-all duration-300" />
+              </div>
+            </div>
+          </div>
+        </AnimateOnScroll>
+      </div>
+    </div>
   </section>
 </template>
+
+<style scoped>
+.testimonial-container {
+  position: relative;
+  overflow: hidden;
+  min-height: 250px;
+}
+
+.testimonial-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease-in-out;
+  visibility: hidden;
+}
+
+.testimonial-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+  visibility: visible;
+}
+
+/* Estilo para los logos de clientes */
+.logos-container img {
+  transition: all 0.3s ease;
+}
+
+.logos-container img:hover {
+  transform: scale(1.1);
+}
+
+/* Efecto para resaltar los controles de navegación */
+button:focus {
+  outline: 2px solid rgba(255, 204, 1, 0.5);
+  outline-offset: 2px;
+}
+</style>

@@ -3,60 +3,39 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import AnimateOnScroll from "./AnimateOnScroll.vue";
 import { ref } from "vue";
 
-import {
-  Target,
-  Briefcase,
-  Award,
-  Clock,
-} from "lucide-vue-next";
-
 interface ValoresProps {
-  icon: string;
   title: string;
   description: string;
+  image: string;
 }
 
 const valoresList: ValoresProps[] = [
   {
-    icon: "award",
     title: "Calidad",
     description:
       "Implementamos procesos y utilizamos materiales de primera calidad para garantizar un servicio que cumple con los más altos estándares.",
+    image: "calidad.jpg",
   },
   {
-    icon: "briefcase",
     title: "Profesionalismo",
     description:
       "Contamos con personal técnico calificado y experimentado, que trabaja con seriedad y compromiso en cada proyecto asignado.",
+    image: "profesionalismo.jpg",
   },
   {
-    icon: "clock",
     title: "Puntualidad",
     description:
       "Cumplimos con los plazos acordados. Sabemos la importancia de los tiempos en cada proyecto y trabajamos para que nuestros clientes cumplan sus cronogramas.",
+    image: "puntualidad.jpg",
   },
   {
-    icon: "target",
     title: "Versatilidad",
     description:
       "Ofrecemos una amplia gama de servicios especializados para dar solución integral a las necesidades de construcción y mantenimiento de su hogar o negocio.",
+    image: "versatilidad.jpg",
   },
 ];
 
-const iconMap: Record<
-  string,
-  | typeof Award
-  | typeof Clock
-  | typeof Target
-  | typeof Briefcase
-> = {
-  award: Award,
-  clock: Clock,
-  target: Target,
-  briefcase: Briefcase,
-};
-
-// Para efectos interactivos
 const hoveredBox = ref<number | string | null>(null);
 
 const setHoveredBox = (index: number | string) => {
@@ -71,18 +50,21 @@ const clearHoveredBox = () => {
 <template>
   <section
     id="nosotros"
-    class="container py-24 sm:py-32 relative"
+    class="w-full py-24 sm:py-32 relative dots-background-primary"
   >
     <!-- Elemento decorativo de fondo con parallax -->
     <div class="absolute -top-20 -right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-70 animate-blob"></div>
     <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-secondary/10 rounded-full blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
     
-    <div class="text-center mb-12 relative z-10">
+    <div class="text-center mb-12 relative z-10 px-4 md:px-8 lg:px-12 max-w-[2000px] mx-auto">
       <AnimateOnScroll>
-        <h2 class="text-lg text-primary mb-2 tracking-wider">Nosotros</h2>
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-secondary">
-          MATIGLAS E.I.R.L.
+        <h2 class="text-lg text-primary mb-2 tracking-wider russo-font">Nosotros</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-secondary russo-font">
+          MATIGLAS <span class="text-primary">E.I.R.L.</span>
         </h2>
+        <div class="flex justify-center mb-6">
+          <img src="/matiglas_logo.png" alt="MATIGLAS Logo" class="max-w-[200px] h-auto" />
+        </div>
         <p class="md:w-3/4 mx-auto text-xl text-muted-foreground">
           Empresa peruana especializada en servicios generales de construcción, 
           mantenimiento y remodelación para proyectos residenciales y comerciales.
@@ -91,7 +73,7 @@ const clearHoveredBox = () => {
     </div>
 
     <!-- Misión y Visión con imágenes -->
-    <div class="grid md:grid-cols-2 gap-8 mb-16">
+    <div class="grid md:grid-cols-2 gap-8 mb-16 px-4 md:px-8 lg:px-12 max-w-[2000px] mx-auto">
       <AnimateOnScroll>
         <div 
           class="bg-muted/30 dark:bg-card p-6 rounded-2xl border border-border flex flex-col h-full transform-gpu transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 relative overflow-hidden"
@@ -102,7 +84,7 @@ const clearHoveredBox = () => {
           <span class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent transform -translate-x-full benefit-border-animation"></span>
           
           <div class="flex items-center gap-4 mb-4 relative">
-            <div class="bg-secondary-light p-2 rounded-lg transform transition-all duration-500" :class="{'scale-110 rotate-6': hoveredBox === 'mision'}">
+            <div class="bg-secondary/10 p-2 rounded-lg transform transition-all duration-500" :class="{'scale-110 rotate-6': hoveredBox === 'mision'}">
               <img 
                 src="/mision.png" 
                 alt="Misión" 
@@ -110,7 +92,7 @@ const clearHoveredBox = () => {
                 :class="{'animate-pulse': hoveredBox === 'mision'}"
               />
             </div>
-            <h3 class="text-2xl font-bold text-secondary transition-transform duration-300" :class="{'translate-x-2': hoveredBox === 'mision'}">Misión</h3>
+            <h3 class="text-2xl font-bold text-secondary transition-transform duration-300 russo-font" :class="{'translate-x-2': hoveredBox === 'mision'}">Misión</h3>
           </div>
           
           <p class="text-muted-foreground flex-grow transition-colors duration-300" :class="{'text-foreground': hoveredBox === 'mision'}">
@@ -129,7 +111,7 @@ const clearHoveredBox = () => {
           <span class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent transform -translate-x-full benefit-border-animation delay-1000"></span>
           
           <div class="flex items-center gap-4 mb-4">
-            <div class="bg-primary-light p-2 rounded-lg transform transition-all duration-500" :class="{'scale-110 -rotate-6': hoveredBox === 'vision'}">
+            <div class="bg-primary/10 p-2 rounded-lg transform transition-all duration-500" :class="{'scale-110 -rotate-6': hoveredBox === 'vision'}">
               <img 
                 src="/vision.png" 
                 alt="Visión" 
@@ -137,7 +119,7 @@ const clearHoveredBox = () => {
                 :class="{'animate-pulse': hoveredBox === 'vision'}"
               />
             </div>
-            <h3 class="text-2xl font-bold text-secondary transition-transform duration-300" :class="{'translate-x-2': hoveredBox === 'vision'}">Visión</h3>
+            <h3 class="text-2xl font-bold text-secondary transition-transform duration-300 russo-font" :class="{'translate-x-2': hoveredBox === 'vision'}">Visión</h3>
           </div>
           
           <p class="text-muted-foreground flex-grow transition-colors duration-300" :class="{'text-foreground': hoveredBox === 'vision'}">
@@ -148,55 +130,66 @@ const clearHoveredBox = () => {
     </div>
 
     <!-- Valores -->
-    <div class="mb-6">
+    <div class="mb-6 px-4 md:px-8 lg:px-12 max-w-[2000px] mx-auto">
       <AnimateOnScroll>
-        <h3 class="text-2xl font-bold text-secondary text-center mb-8">Nuestros Valores</h3>
+        <h3 class="text-2xl font-bold text-secondary text-center mb-8 russo-font">Nuestros Valores</h3>
       </AnimateOnScroll>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full relative z-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full relative z-10 px-4 md:px-8 lg:px-12 max-w-[2000px] mx-auto">
       <AnimateOnScroll
-        v-for="({ icon, title, description }, index) in valoresList"
+        v-for="({ title, description, image }, index) in valoresList"
         :key="title"
         :delay="index * 100"
         :distance="40"
       >
         <Card
-          class="bg-muted/50 dark:bg-card hover:bg-background dark:hover:bg-background transition-all duration-300 ease-in-out group/number border-t-2 border-t-primary/30 hover:border-t-primary/60 h-full flex flex-col transform hover:scale-[1.03] hover:shadow-xl"
+          class="bg-muted/30 dark:bg-card hover:bg-background dark:hover:bg-background transition-all duration-300 ease-in-out group/number border border-border/50 hover:border-primary/30 h-full flex flex-col transform hover:scale-[1.03] hover:shadow-xl relative overflow-hidden"
           @mouseenter="setHoveredBox(index)" 
           @mouseleave="clearHoveredBox()"
         >
-          <CardHeader class="flex-none">
-            <div class="flex justify-between">
-              <component
-                class="size-8 mb-6 transition-all duration-500"
+          <!-- Imagen como fondo tenue -->
+          <div class="absolute inset-0 w-full h-full z-0">
+            <img :src="`/${image}`" :alt="title" class="w-full h-full object-cover opacity-10 dark:opacity-5 group-hover/number:opacity-20 transition-opacity duration-300" />
+            <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-background/50 to-transparent dark:from-background/90 dark:via-background/70"></div>
+          </div>
+
+          <CardHeader class="flex-none relative z-10">
+            <div class="flex justify-between items-start mb-4">
+              <!-- Imagen pequeña en esquina -->
+              <div 
+                class="p-1.5 bg-primary/10 rounded-lg border border-primary/20 transition-all duration-500 transform"
                 :class="{
-                  'text-secondary': hoveredBox !== index,
-                  'text-primary rotate-12 scale-125': hoveredBox === index
+                  'rotate-6 scale-110': hoveredBox === index
                 }"
-                :is="iconMap[icon]"
-              />
+              >
+                <img 
+                  :src="`/${image}`" 
+                  :alt="title" 
+                  class="w-10 h-10 object-cover rounded-md"
+                />
+              </div>
 
               <span
-                class="text-5xl text-muted-foreground/15 font-medium transition-all delay-75 group-hover/number:text-primary/30"
+                class="text-5xl text-muted-foreground/15 font-medium transition-all delay-75 group-hover/number:text-primary/30 russo-font"
                 :class="{'scale-110 -translate-y-1': hoveredBox === index}"
                 >0{{ index + 1 }}</span
               >
             </div>
 
             <CardTitle 
-              class="text-secondary transition-all duration-300"
-              :class="{'translate-y-[-3px]': hoveredBox === index}"
+              class="text-secondary transition-all duration-300 russo-font"
+              :class="{'translate-y-[-3px] text-primary/90': hoveredBox === index}"
             >{{ title }}</CardTitle>
           </CardHeader>
 
-          <CardContent class="text-muted-foreground flex-grow transition-colors duration-300" :class="{'text-foreground': hoveredBox === index}">
+          <CardContent class="text-muted-foreground flex-grow relative z-10 transition-colors duration-300" :class="{'text-foreground': hoveredBox === index}">
             {{ description }}
           </CardContent>
           
           <!-- Indicador visual de hover -->
           <div 
-            class="absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-500 ease-out"
+            class="absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-500 ease-out z-10"
             :class="{'scale-x-100': hoveredBox === index}"
           ></div>
         </Card>
@@ -206,14 +199,6 @@ const clearHoveredBox = () => {
 </template>
 
 <style scoped>
-.bg-secondary-light {
-  background-color: rgba(25, 81, 155, 0.1);
-}
-
-.bg-primary-light {
-  background-color: rgba(241, 229, 20, 0.1);
-}
-
 .benefit-border-animation {
   animation: slide-right 3s linear infinite;
 }
@@ -252,5 +237,12 @@ const clearHoveredBox = () => {
 
 .delay-1000 {
   animation-delay: 1s;
+}
+
+/* Ensure card content is above the background image */
+.card-header,
+.card-content {
+  position: relative;
+  z-index: 10;
 }
 </style>

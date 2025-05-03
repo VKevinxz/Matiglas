@@ -24,11 +24,12 @@ import {
               href="#"
               class="flex font-bold items-center"
             >
-              <div class="bg-primary rounded-lg w-9 h-9 mr-2 border flex items-center justify-center text-secondary font-bold">
-                M
-              </div>
-
-              <h3 class="text-2xl">MATIGLAS E.I.R.L.</h3>
+              <img 
+                src="/matiglas_logo.png" 
+                alt="MATIGLAS" 
+                class="h-10 w-auto mr-2"
+              />
+              <h3 class="text-2xl">MATIGLAS <span class="text-primary">E.I.R.L.</span></h3>
             </a>
             <p class="mt-4 text-white/80">
               Empresa peruana especializada en servicios generales de construcción, mantenimiento y remodelación para
@@ -41,7 +42,7 @@ import {
             <div>
               <a
                 href="#inicio"
-                class="opacity-60 hover:opacity-100"
+                class="opacity-60 hover:opacity-100 hover:text-primary transition-colors duration-300"
               >
                 Inicio
               </a>
@@ -50,7 +51,7 @@ import {
             <div>
               <a
                 href="#nosotros"
-                class="opacity-60 hover:opacity-100"
+                class="opacity-60 hover:opacity-100 hover:text-primary transition-colors duration-300"
               >
                 Nosotros
               </a>
@@ -59,7 +60,7 @@ import {
             <div>
               <a
                 href="#servicios"
-                class="opacity-60 hover:opacity-100"
+                class="opacity-60 hover:opacity-100 hover:text-primary transition-colors duration-300"
               >
                 Servicios
               </a>
@@ -68,7 +69,7 @@ import {
             <div>
               <a
                 href="#contacto"
-                class="opacity-60 hover:opacity-100"
+                class="opacity-60 hover:opacity-100 hover:text-primary transition-colors duration-300"
               >
                 Contacto
               </a>
@@ -80,7 +81,7 @@ import {
             <div>
               <a
                 href="#servicios"
-                class="opacity-60 hover:opacity-100"
+                class="opacity-60 hover:opacity-100 hover:text-primary transition-colors duration-300"
               >
                 Pintura en general
               </a>
@@ -89,7 +90,7 @@ import {
             <div>
               <a
                 href="#servicios"
-                class="opacity-60 hover:opacity-100"
+                class="opacity-60 hover:opacity-100 hover:text-primary transition-colors duration-300"
               >
                 Sistemas eléctricos
               </a>
@@ -98,7 +99,7 @@ import {
             <div>
               <a
                 href="#servicios"
-                class="opacity-60 hover:opacity-100"
+                class="opacity-60 hover:opacity-100 hover:text-primary transition-colors duration-300"
               >
                 Albañilería
               </a>
@@ -107,7 +108,7 @@ import {
             <div>
               <a
                 href="#servicios"
-                class="opacity-60 hover:opacity-100"
+                class="opacity-60 hover:opacity-100 hover:text-primary transition-colors duration-300"
               >
                 Sistema Drywall
               </a>
@@ -118,31 +119,31 @@ import {
             <h3 class="font-bold text-lg">Contacto</h3>
             
             <div class="flex items-center gap-2">
-              <Phone class="size-5" />
-              <span class="opacity-80">972960526 / 947258074</span>
+              <Phone class="size-5 text-primary" />
+              <span class="opacity-80 hover:opacity-100 transition-opacity duration-200">972960526 / 947258074</span>
             </div>
 
             <div class="flex items-center gap-2">
-              <Mail class="size-5" />
-              <span class="opacity-80">matiglas.2014@gmail.com</span>
+              <Mail class="size-5 text-primary" />
+              <span class="opacity-80 hover:opacity-100 transition-opacity duration-200">matiglas.2014@gmail.com</span>
             </div>
 
             <div class="flex items-center gap-2">
-              <Building2 class="size-5" />
-              <span class="opacity-80">Mza. Q Lote. 13 Urb. Los Jazmines Etp.4</span>
+              <Building2 class="size-5 text-primary" />
+              <span class="opacity-80 hover:opacity-100 transition-opacity duration-200">Mza. Q Lote. 13 Urb. Los Jazmines Etp.4</span>
             </div>
             
             <div class="flex items-center gap-2">
-              <Globe class="size-5" />
-              <span class="opacity-80">www.serviciosmatiglas.com</span>
+              <Globe class="size-5 text-primary" />
+              <span class="opacity-80 hover:opacity-100 transition-opacity duration-200">www.serviciosmatiglas.com</span>
             </div>
           </div>
         </div>
 
         <Separator class="my-6 bg-white/20" />
-        <section className="text-center">
+        <section class="text-center">
           <h3 class="opacity-80">
-            &copy; {{ new Date().getFullYear() }} MATIGLAS E.I.R.L. - Todos los derechos reservados
+            &copy; {{ new Date().getFullYear() }} MATIGLAS <span class="text-primary">E.I.R.L.</span> - Todos los derechos reservados
           </h3>
         </section>
       </div>
