@@ -162,18 +162,10 @@ watch(mode, () => {
     <!-- Overlay con gradiente -->
     <div class="absolute inset-0 bg-gradient-to-b from-secondary/70 via-secondary/60 to-background z-10 w-full"></div>
     
-    <!-- Rectángulo amarillo vertical al estilo Bauhaus -->
-    <div class="absolute left-0 md:left-0 lg:left-16 top-1/2 transform -translate-y-1/2 h-3/4 w-6 md:w-12 lg:w-16 bg-primary z-20"></div>
-    
     <!-- Contenido principal con estructura tipo Bauhaus -->
     <div class="w-full max-w-[2000px] px-4 md:px-8 lg:px-12 mx-auto relative z-20">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-        <!-- Columna izquierda con rectángulo amarillo y "CONSTRUCCIÓN" -->
-        <div class="md:col-span-2 hidden md:flex flex-col items-start">
-          <div class="bg-primary p-3 md:p-5 lg:p-6">
-            <p class="text-black font-medium transform -rotate-90 origin-center whitespace-nowrap text-xs md:text-sm lg:text-base russo-font">SERVICIOS</p>
-          </div>
-        </div>
+
         
         <!-- Contenido principal -->
         <div class="md:col-span-10 flex flex-col items-center md:items-start text-center md:text-left transform transition-transform duration-700"
@@ -182,7 +174,7 @@ watch(mode, () => {
           <div class="w-full mb-6">
             <div class="inline-block bg-transparent">
               <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold text-white tracking-tighter mb-4 russo-font">
-                MATIGLAS<span class="text-primary">.</span>
+                MATIGLAS <span class="text-primary">.</span>
               </h1>
               <div class="h-2 w-1/3 md:w-1/2 bg-primary mt-2"></div>
             </div>
@@ -236,7 +228,7 @@ watch(mode, () => {
         <AnimateOnScroll>
           <div class="flex flex-col items-start space-y-4 z-10">
             <div class="inline-block bg-primary px-3 py-1 text-lg relative">
-              <span class="text-black russo-font">MATIGLAS E.I.R.L.</span>
+              <span class="text-black russo-font">MATIGLAS.</span>
             </div>
 
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary russo-font">

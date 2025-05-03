@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import AnimateOnScroll from "./AnimateOnScroll.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue"; // Import computed
+import { useColorMode } from "@vueuse/core"; // Import useColorMode
+
+const mode = useColorMode(); // Get the color mode
+
+const logoSrc = computed(() => {
+  return mode.value === 'dark' ? '/matiglas_logo.png' : '/matiglas_logo_light.png';
+});
 
 interface ValoresProps {
   title: string;
@@ -59,11 +66,8 @@ const clearHoveredBox = () => {
     <div class="text-center mb-12 relative z-10 px-4 md:px-8 lg:px-12 max-w-[2000px] mx-auto">
       <AnimateOnScroll>
         <h2 class="text-lg text-primary mb-2 tracking-wider russo-font">Nosotros</h2>
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-secondary russo-font">
-          MATIGLAS <span class="text-primary">E.I.R.L.</span>
-        </h2>
         <div class="flex justify-center mb-6">
-          <img src="/matiglas_logo.png" alt="MATIGLAS Logo" class="max-w-[200px] h-auto" />
+          <img :src="logoSrc" alt="MATIGLAS Logo" class="max-w-[200px] h-auto" />
         </div>
         <p class="md:w-3/4 mx-auto text-xl text-muted-foreground">
           Empresa peruana especializada en servicios generales de construcción, 

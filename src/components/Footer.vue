@@ -27,11 +27,10 @@ import {
               <img 
                 src="/matiglas_logo.png" 
                 alt="MATIGLAS" 
-                class="h-10 w-auto mr-2"
+                class="h-24 w-auto mr-2"
               />
-              <h3 class="text-2xl">MATIGLAS <span class="text-primary">E.I.R.L.</span></h3>
             </a>
-            <p class="mt-4 text-white/80">
+            <p class="text-white/80">
               Empresa peruana especializada en servicios generales de construcción, mantenimiento y remodelación para
               proyectos residenciales y comerciales.
             </p>
@@ -143,7 +142,7 @@ import {
         <Separator class="my-6 bg-white/20" />
         <section class="text-center">
           <h3 class="opacity-80">
-            &copy; {{ new Date().getFullYear() }} MATIGLAS <span class="text-primary">E.I.R.L.</span> - Todos los derechos reservados
+            &copy; {{ new Date().getFullYear() }} MATIGLAS - Todos los derechos reservados
           </h3>
         </section>
       </div>

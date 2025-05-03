@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar.vue";
 import Hero from "./components/Hero.vue";
 import Benefits from "./components/Benefits.vue";
 import Services from "./components/Services.vue";
+import Homologaciones from "./components/Homologaciones.vue";
 import Testimonials from "./components/Testimonials.vue";
 import Community from "./components/Community.vue";
 import Contact from "./components/Contact.vue";
@@ -15,6 +16,7 @@ import Footer from "./components/Footer.vue";
     <Hero />
     <Benefits />
     <Services />
+    <Homologaciones />
     <Testimonials />
     <Community />
     <Contact />

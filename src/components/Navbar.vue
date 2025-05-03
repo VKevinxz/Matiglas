@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue"; // Removed computed and useColorMode imports
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -20,6 +20,7 @@ const isMenuOpen = ref(false);
 const menuItems = ref([
   { title: "Inicio", href: "#", icon: "home" },
   { title: "Servicios", href: "#servicios", icon: "wrench" },
+  { title: "Homologaciones", href: "#homologaciones", icon: "award" },
   { title: "Nosotros", href: "#nosotros", icon: "users" },
   { title: "Proyectos", href: "#proyectos", icon: "briefcase" },
   { title: "Contacto", href: "#contacto", icon: "mail" },
@@ -113,8 +114,8 @@ onMounted(() => {
             <img 
               src="/matiglas_logo.png" 
               alt="MATIGLAS" 
-              class="h-9 w-auto z-10 relative transition-all duration-300"
-              :class="{ 'h-8': isScrolled }"
+              class="h-20 w-auto z-10 relative transition-all duration-300" 
+              :class="{ 'h-16': isScrolled }"
             />
           </div>
         </a>
