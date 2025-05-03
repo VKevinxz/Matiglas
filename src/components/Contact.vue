@@ -282,12 +282,23 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <!-- Mapa (simulado con una imagen/div) -->
-            <div class="relative h-48 rounded-lg overflow-hidden border border-border group">
-              <div class="absolute inset-0 bg-secondary/10 flex items-center justify-center">
-                <span class="text-secondary font-medium">Mapa de ubicación</span>
+            <!-- Mapa de Google Maps embebido -->
+            <div class="relative h-64 md:h-80 rounded-lg overflow-hidden border border-border shadow-sm group">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.587839691002!2d-76.9980016851864!3d-12.14001199140398!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b8111a0111c3%3A0x3d8e6f7a32a4e1e!2sAv.%20Los%20Heroes%20123%2C%20San%20Juan%20de%20Miraflores%2015803%2C%20Peru!5e0!3m2!1sen!2sus!4v1678886400000!5m2!1sen!2sus" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                class="absolute inset-0 w-full h-full"
+              ></iframe>
+              <!-- Overlay opcional para efecto hover -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              <div class="absolute bottom-2 right-2 bg-white dark:bg-secondary p-1 rounded shadow text-xs">
+                <a href="https://www.google.com/maps/place/Av.+Los+Heroes+123,+San+Juan+de+Miraflores+15803,+Peru/@-12.140012,-76.9980017,17z/data=!3m1!4b1!4m5!3m4!1s0x9105b8111a0111c3:0x3d8e6f7a32a4e1e!8m2!3d-12.140012!4d-76.995813" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Ver en Google Maps</a>
               </div>
-              <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
           </div>
         </AnimateOnScroll>
@@ -325,7 +336,7 @@ onUnmounted(() => {
   50% { transform: scale(1.05); }
 }
 
-.social-icon-pulse {
+social-icon-pulse {
   animation: pulse 2s infinite;
 }
 </style>

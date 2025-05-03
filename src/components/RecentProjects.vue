@@ -41,6 +41,12 @@ const projects: ProjectProps[] = [
     category: "Mantenimiento"
   },
 ];
+
+const scrollToElement = (id: string) => {
+  if (typeof document !== 'undefined') {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 </script>
 
 <template>
@@ -100,7 +106,10 @@ const projects: ProjectProps[] = [
        <!-- Optional: Button to view more projects -->
       <AnimateOnScroll :delay="projects.length * 100 + 100" animation="fade-up">
         <div class="mt-12 text-center">
-            <button class="btn-pulse bg-primary hover:bg-primary/90 text-black px-6 py-3 rounded-md font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/30 shadow-md russo-font">
+            <button 
+              class="btn-pulse bg-primary hover:bg-primary/90 text-black px-6 py-3 rounded-md font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/30 shadow-md russo-font"
+              @click="scrollToElement('proyectos')"
+            >
                 <span class="relative z-10">Ver más proyectos</span>
             </button>
         </div>

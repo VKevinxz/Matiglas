@@ -110,6 +110,30 @@ const typeEffect = () => {
   setTimeout(typeEffect, typingSpeed);
 };
 
+const scrollToProyectos = () => {
+  // Check if running in a browser environment
+  if (typeof document !== 'undefined') {
+    const el = document.getElementById('proyectos');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.warn('Elemento #proyectos no encontrado, usando fallback de hash.');
+      // Fallback to hash navigation if element not found
+      window.location.hash = '#proyectos';
+    }
+  } else {
+    // Log an error if document is not available (shouldn't happen in a click handler)
+    console.error('`document` is undefined in scrollToProyectos handler.');
+  }
+};
+
+// Function to navigate to a section
+const navigateTo = (hash: string) => {
+  if (typeof window !== 'undefined') {
+    window.location.href = hash;
+  }
+};
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('mousemove', handleMouseMove);
@@ -199,7 +223,12 @@ watch(mode, () => {
 
           <AnimateOnScroll animation="fade-up" :delay="300">
             <div class="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-md">
-              <Button variant="default" size="lg" class="group btn-hover-effect w-full sm:w-auto relative overflow-hidden bg-primary text-black hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5">
+              <Button 
+                variant="default" 
+                size="lg" 
+                class="group btn-hover-effect w-full sm:w-auto relative overflow-hidden bg-primary text-black hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5" 
+                @click="scrollToProyectos" 
+              >
                 <span class="relative z-10 russo-font">Ver proyectos</span>
                 <ChevronRight class="ml-2 size-4 group-hover:translate-x-1 transition-transform duration-300" />
                 <div class="btn-glow"></div>
@@ -271,12 +300,12 @@ watch(mode, () => {
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 pt-4 relative z-10">
-              <Button variant="default" class="hero-btn-primary bg-primary text-black hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5">
+              <Button variant="default" class="hero-btn-primary bg-primary text-black hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5" @click="navigateTo('#contacto')">
                 <Phone class="mr-2 h-4 w-4" />
                 <span class="russo-font">Contáctanos</span>
                 <div class="btn-glow"></div>
               </Button>
-              <Button variant="outline" class="hero-btn-secondary hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5">
+              <Button variant="outline" class="hero-btn-secondary hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5" @click="navigateTo('#contacto')">
                 <Mail class="mr-2 h-4 w-4" />
                 <span class="russo-font">Solicitar presupuesto</span>
               </Button>

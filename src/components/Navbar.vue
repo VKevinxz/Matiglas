@@ -24,6 +24,7 @@ const menuItems = ref([
   { title: "Inicio", href: "#", icon: "home" },
   { title: "Nosotros", href: "#nosotros", icon: "users" },
   { title: "Servicios", href: "#servicios", icon: "wrench" },
+  { title: "Proyectos", href: "#proyectos", icon: "briefcase" },
   { title: "Homologaciones", href: "#homologaciones", icon: "award" },
   { title: "Contacto", href: "#contacto", icon: "mail" },
 ]);
@@ -74,6 +75,14 @@ const closeMenu = () => {
 // Acentuar el elemento del menú al hacer click (para dispositivos móviles)
 const handleMenuItemClick = () => {
   closeMenu();
+};
+
+const scrollToContact = () => {
+  if (typeof window !== 'undefined') {
+    window.location.href = '#contacto';
+  } else {
+    console.error('window object is not available.');
+  }
 };
 
 onMounted(() => {
@@ -162,7 +171,7 @@ onMounted(() => {
           <a href="#" class="border-white text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
             <FacebookIcon class="h-5 w-5" />
           </a>
-          <a href="#" class="bg-white hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+          <a href="#" class="hover:text-primary transition-colors duration-300 hover:scale-110 transform">
             <LinkedInIcon class="h-5 w-5" />
           </a>
           <a href="#" class="border-white text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
@@ -181,6 +190,7 @@ onMounted(() => {
             size="sm" 
             class="button-pulse-effect bg-primary text-black hover:bg-primary/90" 
             @mouseenter="hoverIndex = -1"
+            @click="scrollToContact"
           >
             <span class="relative z-10">Cotizar</span>
           </Button>
@@ -264,7 +274,7 @@ onMounted(() => {
                   <Button 
                     variant="default" 
                     class="w-full button-pulse-effect bg-primary text-black hover:bg-primary/90"
-                    @click="closeMenu"
+                    @click="() => { closeMenu(); scrollToContact(); }"
                   >
                     <span class="relative z-10">Cotizar ahora</span>
                   </Button>

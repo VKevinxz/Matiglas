@@ -145,6 +145,13 @@ onMounted(() => {
     observer.observe(section);
   }
 });
+
+// Function to navigate to a section
+const navigateTo = (hash: string) => {
+  if (typeof window !== 'undefined') {
+    window.location.href = hash;
+  }
+};
 </script>
 
 <template>
@@ -246,7 +253,7 @@ onMounted(() => {
     <AnimateOnScroll :delay="200" animation="fade-up">
       <div class="mt-16 text-center relative z-10">
         <a href="#contacto">
-          <button class="btn-pulse mt-6 bg-primary hover:bg-primary/90 text-black px-6 py-3 rounded-md font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/30 shadow-md russo-font">
+          <button class="btn-pulse mt-6 bg-primary hover:bg-primary/90 text-black px-6 py-3 rounded-md font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/30 shadow-md russo-font" @click="navigateTo('#contacto')">
             <span class="relative z-10">Solicitar un presupuesto</span>
           </button>
         </a>
