@@ -10,7 +10,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ToggleTheme from "./ToggleTheme.vue";
-import { Menu, X } from "lucide-vue-next";
+// Import Lucide icons
+import {
+  Menu,
+  X,
+  Home,
+  Users,
+  Wrench,
+  Briefcase,
+  Award,
+  Mail,
+} from "lucide-vue-next";
 import FacebookIcon from "@/icons/FacebookIcon.vue";
 import LinkedInIcon from "@/icons/LinkedInIcon.vue";
 import TikTokIcon from "@/icons/TikTokIcon.vue";
@@ -21,12 +31,12 @@ const isVisible = ref(true);
 const scrollThreshold = 100;
 const isMenuOpen = ref(false);
 const menuItems = ref([
-  { title: "Inicio", href: "#", icon: "home" },
-  { title: "Nosotros", href: "#nosotros", icon: "users" },
-  { title: "Servicios", href: "#servicios", icon: "wrench" },
-  { title: "Proyectos", href: "#proyectos", icon: "briefcase" },
-  { title: "Homologaciones", href: "#homologaciones", icon: "award" },
-  { title: "Contacto", href: "#contacto", icon: "mail" },
+  { title: "Inicio", href: "#", icon: Home },
+  { title: "Nosotros", href: "#nosotros", icon: Users },
+  { title: "Servicios", href: "#servicios", icon: Wrench },
+  { title: "Proyectos", href: "#proyectos", icon: Briefcase },
+  { title: "Homologaciones", href: "#homologaciones", icon: Award },
+  { title: "Contacto", href: "#contacto", icon: Mail },
 ]);
 
 const activeSection = ref("inicio");
@@ -62,10 +72,6 @@ const handleScroll = () => {
       activeSection.value = sectionId || 'inicio';
     }
   });
-};
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
 };
 
 const closeMenu = () => {
@@ -207,7 +213,6 @@ onMounted(() => {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                @click="toggleMenu" 
                 class="relative overflow-hidden button-ripple text-white hover:text-white hover:bg-white/20"
               >
                 <Menu v-if="!isMenuOpen" class="h-6 w-6 transition-transform duration-500 ease-elastic hover:rotate-180" />
