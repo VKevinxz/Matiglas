@@ -221,15 +221,14 @@ onMounted(() => {
             </SheetTrigger>
             <SheetContent side="right" class="w-[85%] sm:w-[385px] bg-secondary text-white">
               <SheetHeader>
-                <SheetTitle class="flex items-center space-x-2 text-white">
-                  <img 
-                    src="/matiglas_logo.png" 
-                    alt="MATIGLAS" 
-                    class="h-8 w-auto animate-pulse-subtle"
+                <SheetTitle class="flex items-center justify-center space-x-2 text-white">
+                  <img
+                    src="/matiglas_logo.png"
+                    alt="MATIGLAS"
+                    class="h-20 w-auto animate-pulse-subtle"
                   />
-                  <span>MATIGLAS <span class="text-primary shine-effect">E.I.R.L.</span></span>
                 </SheetTitle>
-                <SheetDescription class="text-white/70">
+                <SheetDescription class="text-white/70 -mt-6 text-center">
                   Soluciones integrales en construcción y mantenimiento
                 </SheetDescription>
               </SheetHeader>
