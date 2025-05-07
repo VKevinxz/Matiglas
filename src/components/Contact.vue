@@ -70,10 +70,10 @@ const handleSubmit = () => {
   console.log('Enviando datos:', templateParams);
   
   // Inicializar EmailJS con la clave pública
-  emailjs.init("F8qZLkVWa81FZzSYU");
+  emailjs.init("api");
   
   // Enviar el email usando EmailJS con las credenciales proporcionadas
-  emailjs.send('service_oj98i6p', 'template_5ry3hu4', templateParams)
+  emailjs.send('servicio', 'templete', templateParams)
     .then((response) => {
       console.log('Email enviado!', response.status, response.text);
       isSubmitting.value = false;
