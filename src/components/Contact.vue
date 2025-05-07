@@ -18,11 +18,24 @@ import {
 } from "lucide-vue-next";
 // Importando iconos personalizados
 import TikTokIcon from "@/icons/TikTokIcon.vue";
+// Importando EmailJS
+import emailjs from '@emailjs/browser';
 
 // Para efectos interactivos en el formulario
 const focusedField = ref<string | null>(null);
 const formSubmitted = ref(false);
 const isSubmitting = ref(false);
+
+// Datos del formulario
+const formData = ref({
+  nombre: '',
+  email: '',
+  telefono: '',
+  mensaje: ''
+});
+
+// Mensaje de error
+const errorMessage = ref('');
 
 const setFocusedField = (fieldName: string) => {
   focusedField.value = fieldName;
@@ -34,17 +47,56 @@ const clearFocusedField = () => {
 
 const handleSubmit = () => {
   isSubmitting.value = true;
+  errorMessage.value = '';
   
-  // Simulación de envío
-  setTimeout(() => {
-    isSubmitting.value = false;
-    formSubmitted.value = true;
-    
-    // Resetear el estado después de 3 segundos
-    setTimeout(() => {
-      formSubmitted.value = false;
-    }, 3000);
-  }, 1500);
+  // Preparar los datos para enviar al correo con múltiples variantes para el nombre
+  const templateParams = {
+    from_name: formData.value.nombre,
+    name: formData.value.nombre,        // Añadido 'name' como alternativa
+    nombre: formData.value.nombre,      // Añadido 'nombre' como alternativa
+    user_name: formData.value.nombre,   // Añadido 'user_name' como alternativa
+    from_email: formData.value.email,
+    email: formData.value.email,
+    reply_to: formData.value.email,     // Añadido 'reply_to' como alternativa
+    telefono: formData.value.telefono,
+    phone: formData.value.telefono,     // Añadido 'phone' como alternativa
+    mensaje: formData.value.mensaje,
+    message: formData.value.mensaje,    // Añadido 'message' como alternativa
+    to_name: 'Matiglas',
+    subject: 'Nuevo mensaje de contacto desde el sitio web'
+  };
+  
+  // Añadir console.log para depuración
+  console.log('Enviando datos:', templateParams);
+  
+  // Inicializar EmailJS con la clave pública
+  emailjs.init("F8qZLkVWa81FZzSYU");
+  
+  // Enviar el email usando EmailJS con las credenciales proporcionadas
+  emailjs.send('service_oj98i6p', 'template_5ry3hu4', templateParams)
+    .then((response) => {
+      console.log('Email enviado!', response.status, response.text);
+      isSubmitting.value = false;
+      formSubmitted.value = true;
+      
+      // Resetear el formulario
+      formData.value = {
+        nombre: '',
+        email: '',
+        telefono: '',
+        mensaje: ''
+      };
+      
+      // Resetear el estado después de 3 segundos
+      setTimeout(() => {
+        formSubmitted.value = false;
+      }, 3000);
+    })
+    .catch((error) => {
+      console.error('Error al enviar el email:', error);
+      isSubmitting.value = false;
+      errorMessage.value = 'Ocurrió un error al enviar el mensaje. Por favor intente nuevamente.';
+    });
 };
 
 // URLs de redes sociales con iconos
@@ -127,6 +179,8 @@ onUnmounted(() => {
                       @focus="setFocusedField('nombre')"
                       @blur="clearFocusedField"
                       :disabled="formSubmitted || isSubmitting"
+                      v-model="formData.nombre"
+                      required
                     />
                     <div 
                       class="absolute bottom-0 left-0 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 ease-out"
@@ -145,6 +199,8 @@ onUnmounted(() => {
                       @focus="setFocusedField('email')"
                       @blur="clearFocusedField"
                       :disabled="formSubmitted || isSubmitting"
+                      v-model="formData.email"
+                      required
                     />
                     <div 
                       class="absolute bottom-0 left-0 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 ease-out"
@@ -163,6 +219,7 @@ onUnmounted(() => {
                       @focus="setFocusedField('telefono')"
                       @blur="clearFocusedField"
                       :disabled="formSubmitted || isSubmitting"
+                      v-model="formData.telefono"
                     />
                     <div 
                       class="absolute bottom-0 left-0 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 ease-out"
@@ -181,12 +238,19 @@ onUnmounted(() => {
                       @focus="setFocusedField('mensaje')"
                       @blur="clearFocusedField"
                       :disabled="formSubmitted || isSubmitting"
+                      v-model="formData.mensaje"
+                      required
                     />
                     <div 
                       class="absolute bottom-0 left-0 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 ease-out"
                       :class="{'scale-x-100': focusedField === 'mensaje'}"
                     ></div>
                   </div>
+                </div>
+                
+                <!-- Mensaje de error -->
+                <div v-if="errorMessage" class="text-red-500 text-sm">
+                  {{ errorMessage }}
                 </div>
                 
                 <Button 
