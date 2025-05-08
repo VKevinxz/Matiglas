@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { ref, onMounted, onUnmounted } from 'vue';
 import AnimateOnScroll from "./AnimateOnScroll.vue";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   MapPin, 
   Phone, 
@@ -12,17 +13,24 @@ import {
   Send,
   CheckCircle2,
   Loader2,
-  // Importando iconos de redes sociales de Lucide
   Facebook,
   Linkedin
 } from "lucide-vue-next";
-// Importando iconos personalizados
 import TikTokIcon from "@/icons/TikTokIcon.vue";
+import emailjs from '@emailjs/browser';
 
-// Para efectos interactivos en el formulario
 const focusedField = ref<string | null>(null);
 const formSubmitted = ref(false);
 const isSubmitting = ref(false);
+
+const formData = ref({
+  nombre: '',
+  email: '',
+  telefono: '',
+  mensaje: ''
+});
+
+const errorMessage = ref('');
 
 const setFocusedField = (fieldName: string) => {
   focusedField.value = fieldName;
@@ -34,25 +42,57 @@ const clearFocusedField = () => {
 
 const handleSubmit = () => {
   isSubmitting.value = true;
+  errorMessage.value = '';
   
-  // Simulación de envío
-  setTimeout(() => {
-    isSubmitting.value = false;
-    formSubmitted.value = true;
-    
-    // Resetear el estado después de 3 segundos
-    setTimeout(() => {
-      formSubmitted.value = false;
-    }, 3000);
-  }, 1500);
+  const templateParams = {
+    from_name: formData.value.nombre,
+    name: formData.value.nombre,
+    nombre: formData.value.nombre,
+    user_name: formData.value.nombre,
+    from_email: formData.value.email,
+    email: formData.value.email,
+    reply_to: formData.value.email,
+    telefono: formData.value.telefono,
+    phone: formData.value.telefono,
+    mensaje: formData.value.mensaje,
+    message: formData.value.mensaje,
+    to_name: 'Matiglas',
+    subject: 'Nuevo mensaje de contacto desde el sitio web'
+  };
+  
+  console.log('Enviando datos:', templateParams);
+  
+  emailjs.init("tGGlGcrL9nXegkfnF");
+  
+  emailjs.send('service_3bn8uov', 'template_auvip4f', templateParams)
+    .then((response: any) => {
+      console.log('Email enviado!', response.status, response.text);
+      isSubmitting.value = false;
+      formSubmitted.value = true;
+      
+      formData.value = {
+        nombre: '',
+        email: '',
+        telefono: '',
+        mensaje: ''
+      };
+      
+      setTimeout(() => {
+        formSubmitted.value = false;
+      }, 3000);
+    })
+    .catch((error: any) => {
+      console.error('Error al enviar el email:', error);
+      isSubmitting.value = false;
+      errorMessage.value = 'Ocurrió un error al enviar el mensaje. Por favor intente nuevamente.';
+    });
 };
 
-// URLs de redes sociales con iconos
 const socialLinks = [
   { 
     name: 'Facebook', 
     icon: Facebook, 
-    url: 'https://www.facebook.com/people/Matiglas-EIRL/100093242267750/', 
+    url: 'https://www.facebook.com/profile.php?id=61576167746931', 
     color: 'bg-[#1877F2]',
     hoverColor: 'hover:text-[#1877F2]'
   },
@@ -66,21 +106,18 @@ const socialLinks = [
   { 
     name: 'TikTok', 
     icon: TikTokIcon, 
-    url: '#', 
+    url: 'https://www.tiktok.com/@matiglas.com', 
     color: 'bg-[#000000]',
     hoverColor: 'hover:text-[#000000]'
   }
 ];
 
-// Detectar si es un dispositivo móvil
 const isMobile = ref(false);
 
-// Función para comprobar si es móvil
 const checkIfMobile = () => {
   isMobile.value = window.innerWidth < 768;
 };
 
-// Ejecutar al montar el componente y en cada cambio de tamaño
 onMounted(() => {
   checkIfMobile();
   window.addEventListener('resize', checkIfMobile);
@@ -93,11 +130,30 @@ onUnmounted(() => {
 
 <template>
   <section id="contacto" class="py-24 sm:py-32 relative">
-    <!-- Elementos decorativos de fondo -->
     <div class="absolute top-40 -left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl opacity-70 animate-blob animation-delay-3000"></div>
     <div class="absolute bottom-20 right-10 w-80 h-80 bg-secondary/5 rounded-full blur-3xl opacity-70 animate-blob"></div>
     
     <div class="container">
+      <div 
+        v-if="formSubmitted" 
+        class="fixed inset-0 flex items-center justify-center bg-black/30 dark:bg-black/50 z-50 transition-opacity duration-300"
+        :class="formSubmitted ? 'opacity-100' : 'opacity-0 pointer-events-none'"
+      >
+        <Alert 
+          class="max-w-md w-11/12 bg-background border-primary shadow-xl rounded-lg p-6 transform transition-all duration-300 ease-out"
+          :class="formSubmitted ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
+        >
+          <div class="flex items-center space-x-3">
+            <CheckCircle2 class="h-6 w-6 text-primary" />
+            <div>
+              <AlertDescription class="text-foreground">
+                ¡Mensaje enviado! Revise su bandeja de entrada. Si no lo encuentra, por favor revise su carpeta de spam.
+              </AlertDescription>
+            </div>
+          </div>
+        </Alert>
+      </div>
+
       <AnimateOnScroll>
         <div class="text-center mb-12">
           <h2 class="text-lg text-primary mb-2 tracking-wider">Contacto</h2>
@@ -127,6 +183,8 @@ onUnmounted(() => {
                       @focus="setFocusedField('nombre')"
                       @blur="clearFocusedField"
                       :disabled="formSubmitted || isSubmitting"
+                      v-model="formData.nombre"
+                      required
                     />
                     <div 
                       class="absolute bottom-0 left-0 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 ease-out"
@@ -145,6 +203,8 @@ onUnmounted(() => {
                       @focus="setFocusedField('email')"
                       @blur="clearFocusedField"
                       :disabled="formSubmitted || isSubmitting"
+                      v-model="formData.email"
+                      required
                     />
                     <div 
                       class="absolute bottom-0 left-0 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 ease-out"
@@ -163,6 +223,7 @@ onUnmounted(() => {
                       @focus="setFocusedField('telefono')"
                       @blur="clearFocusedField"
                       :disabled="formSubmitted || isSubmitting"
+                      v-model="formData.telefono"
                     />
                     <div 
                       class="absolute bottom-0 left-0 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 ease-out"
@@ -181,12 +242,18 @@ onUnmounted(() => {
                       @focus="setFocusedField('mensaje')"
                       @blur="clearFocusedField"
                       :disabled="formSubmitted || isSubmitting"
+                      v-model="formData.mensaje"
+                      required
                     />
                     <div 
                       class="absolute bottom-0 left-0 h-0.5 bg-primary transform scale-x-0 origin-left transition-transform duration-300 ease-out"
                       :class="{'scale-x-100': focusedField === 'mensaje'}"
                     ></div>
                   </div>
+                </div>
+                
+                <div v-if="errorMessage" class="text-red-500 text-sm">
+                  {{ errorMessage }}
                 </div>
                 
                 <Button 
@@ -253,7 +320,6 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <!-- Sección de Redes Sociales -->
             <div class="bg-card border border-border p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 space-y-3 transform hover:translate-y-[-2px]">
               <h3 class="font-semibold text-lg mb-3 text-secondary">Síguenos en redes sociales</h3>
               
@@ -282,7 +348,6 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <!-- Mapa de Google Maps embebido -->
             <div class="relative h-64 md:h-80 rounded-lg overflow-hidden border border-border shadow-sm group">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.587839691002!2d-76.9980016851864!3d-12.14001199140398!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b8111a0111c3%3A0x3d8e6f7a32a4e1e!2sAv.%20Los%20Heroes%20123%2C%20San%20Juan%20de%20Miraflores%2015803%2C%20Peru!5e0!3m2!1sen!2sus!4v1678886400000!5m2!1sen!2sus" 
@@ -294,7 +359,6 @@ onUnmounted(() => {
                 referrerpolicy="no-referrer-when-downgrade"
                 class="absolute inset-0 w-full h-full"
               ></iframe>
-              <!-- Overlay opcional para efecto hover -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
               <div class="absolute bottom-2 right-2 bg-white dark:bg-secondary p-1 rounded shadow text-xs">
                 <a href="https://www.google.com/maps/place/Av.+Los+Heroes+123,+San+Juan+de+Miraflores+15803,+Peru/@-12.140012,-76.9980017,17z/data=!3m1!4b1!4m5!3m4!1s0x9105b8111a0111c3:0x3d8e6f7a32a4e1e!8m2!3d-12.140012!4d-76.995813" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Ver en Google Maps</a>
