@@ -174,13 +174,13 @@ onMounted(() => {
         
         <!-- Social icons -->
         <div class="hidden md:flex items-center space-x-4 mr-4">
-          <a href="#" class="border-white text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+          <a href="https://www.facebook.com/profile.php?id=61576167746931" target="_blank" rel="noopener noreferrer" class="border-white text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
             <FacebookIcon class="h-5 w-5" />
           </a>
           <a href="#" class="hover:text-primary transition-colors duration-300 hover:scale-110 transform">
             <LinkedInIcon class="h-5 w-5" />
           </a>
-          <a href="#" class="border-white text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
+          <a href="https://www.tiktok.com/@matiglas.com" target="_blank" rel="noopener noreferrer" class="border-white text-white/80 hover:text-primary transition-colors duration-300 hover:scale-110 transform">
             <TikTokIcon class="h-5 w-5" />
           </a>
         </div>
