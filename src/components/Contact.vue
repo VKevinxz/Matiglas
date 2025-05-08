@@ -5,7 +5,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { ref, onMounted, onUnmounted } from 'vue';
 import AnimateOnScroll from "./AnimateOnScroll.vue";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   MapPin, 
   Phone, 
@@ -134,26 +133,6 @@ onUnmounted(() => {
     <div class="absolute bottom-20 right-10 w-80 h-80 bg-secondary/5 rounded-full blur-3xl opacity-70 animate-blob"></div>
     
     <div class="container">
-      <div 
-        v-if="formSubmitted" 
-        class="fixed inset-0 flex items-center justify-center bg-black/30 dark:bg-black/50 z-50 transition-opacity duration-300"
-        :class="formSubmitted ? 'opacity-100' : 'opacity-0 pointer-events-none'"
-      >
-        <Alert 
-          class="max-w-md w-11/12 bg-background border-primary shadow-xl rounded-lg p-6 transform transition-all duration-300 ease-out"
-          :class="formSubmitted ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
-        >
-          <div class="flex items-center space-x-3">
-            <CheckCircle2 class="h-6 w-6 text-primary" />
-            <div>
-              <AlertDescription class="text-foreground">
-                ¡Mensaje enviado! Revise su bandeja de entrada. Si no lo encuentra, por favor revise su carpeta de spam.
-              </AlertDescription>
-            </div>
-          </div>
-        </Alert>
-      </div>
-
       <AnimateOnScroll>
         <div class="text-center mb-12">
           <h2 class="text-lg text-primary mb-2 tracking-wider">Contacto</h2>
